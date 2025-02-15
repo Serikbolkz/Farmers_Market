@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyers</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            background: url("{% static 'images/picture.jpg' %}") no-repeat center center/cover;
+            margin: 0;
+            padding: 0;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: flex-start;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .top-bar button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .top-bar button:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 70px auto 20px;
+            padding: 20px;
+            max-width: 1200px;
+        }
+        .buyer-card {
+            flex: 1 1 calc(25% - 20px); /* Adjust to fit 4 cards per row */
+            box-sizing: border-box;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            background: linear-gradient(to bottom, #ffffff, #f4f4f4);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .buyer-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .buyer-card img {
+            display: block;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 10px auto;
+            border: 2px solid #6ab04c;
+        }
+        .buyer-card h3 {
+            margin: 15px 0 10px;
+            font-size: 20px;
+            color: #2980b9;
+            text-align: center;
+        }
+        .buyer-card h3 a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s;
+        }
+        .buyer-card h3 a:hover {
+            color: #0056b3;
+        }
+        .buyer-card p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #333;
+            text-align: left;
+        }
+        .no-buyers {
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+            margin-top: 20px;
+        }
+        @media (max-width: 1024px) {
+            .buyer-card {
+                flex: 1 1 calc(33.33% - 20px); /* 3 cards per row for smaller screens */
+            }
+        }
+        @media (max-width: 768px) {
+            .buyer-card {
+                flex: 1 1 calc(50% - 20px); /* 2 cards per row for tablets */
+            }
+        }
+        @media (max-width: 480px) {
+            .buyer-card {
+                flex: 1 1 100%; /* 1 card per row for mobile screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <form action="{% url 'dashboard' %}" method="get">
+            <button type="submit">Go to Main Page</button>
+        </form>
+    </div>
+    <div class="container">
+        {% for buyer in buyers %}
+            <div class="buyer-card">
+                <img src="{{ buyer.image.url }}" alt="{{ buyer.fullname }}">
+                <h3>
+                    <a href="{% url 'buyer_detail' buyer.pk %}">{{ buyer.full_name }}</a>
+                </h3>
+                <p><strong>Email:</strong> {{ buyer.email }}</p>
+                <p><strong>Address:</strong> {{ buyer.address }}</p>
+                <p><strong>Phone:</strong> {{ buyer.phone_number }}</p>
+            </div>
+        {% empty %}
+            <p class="no-buyers">No buyers found.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

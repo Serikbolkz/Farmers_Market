@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: url("{% static 'images/picture.jpg' %}") no-repeat center center/cover;
+            color: white;
+        }
+        .admin-container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .admin-container h1 {
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .button-container a {
+            text-decoration: none;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+        .green-button {
+            background-color: #4caf50;
+            color: white;
+        }
+        .red-button {
+            background-color: red;
+            color: white;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        .info-bar {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Farmer Market Admin Page</h1>
+        <div class="info-bar" id="info-bar">
+        </div>
+        <div class="button-container">
+            <a href="{% url 'show_farmers' %}"><button type="button" class="green-button">Farmers</button></a>
+            <a href="{% url 'show_buyers' %}"><button type="button" class="green-button">Buyers</button></a>
+            <a href="{% url 'show_pendings' %}"><button type="button" class="green-button">Pending Farmers</button></a>
+            <a href="{% url 'logout' %}"><button type="button" class="red-button">Logout</button></a>
+        </div>
+    </div>
+    <script>
+        function updateInfoBar() {
+            const infoBar = document.getElementById('info-bar');
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = now.toLocaleDateString(undefined, options);
+            const time = now.toLocaleTimeString();
+            infoBar.innerHTML = `Date: ${date} | Time: ${time}`;
+        }
+        setInterval(updateInfoBar, 1000);
+        updateInfoBar();
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Farmers</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            background: url("{% static 'images/picture.jpg' %}") no-repeat center center/cover;
+            margin: 0;
+            padding: 0;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: flex-start;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .top-bar button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .top-bar button:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 70px auto 20px;
+            padding: 20px;
+            max-width: 1200px;
+        }
+        .farmer-card {
+            flex: 1 1 calc(25% - 20px);
+            box-sizing: border-box;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            background: linear-gradient(to bottom, #ffffff, #f4f4f4);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .farmer-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .farmer-card img {
+            display: block;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 10px auto;
+            border: 2px solid #6ab04c;
+        }
+        .farmer-card h3 {
+            margin: 15px 0 10px;
+            font-size: 20px;
+            color: #2980b9;
+            text-align: center;
+        }
+        .farmer-card p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #333;
+            text-align: left;
+        }
+        .no-farmers {
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <form action="{% url 'dashboard' %}" method="get">
+            <button type="submit">Go to Main Page</button>
+        </form>
+    </div>
+    <div class="container">
+        {% for farmer in pending_farmers %}
+            <div class="farmer-card">
+                <img src="{{ farmer.image.url }}" alt="{{ farmer.name }} {{ farmer.surname }}">
+                <h3>{{ farmer.name }} {{ farmer.surname }}</h3>
+                <p><strong>Email:</strong> {{ farmer.email }}</p>
+                <p><strong>Phone:</strong> {{ farmer.phonenumber }}</p>
+                <p><strong>Location:</strong> {{ farmer.farm_location }}</p>
+                
+                <!-- Form to accept/reject farmer -->
+                <form action="{% url 'accept_farmer' farmer.id %}" method="post" style="margin-top: 10px;">
+                    {% csrf_token %}
+                    <label for="message">Message:</label>
+                    <textarea name="message" id="message" rows="2" style="width: 100%;"></textarea>
+                    <button type="submit" style="background-color: green; color: white; padding: 10px; margin: 5px;">Accept Farmer</button>
+                </form>
+                <form action="{% url 'reject_farmer' farmer.id %}" method="post">
+                    {% csrf_token %}
+                    <label for="message">Message:</label>
+                    <textarea name="message" id="message" rows="2" style="width: 100%;"></textarea>
+                    <button type="submit" style="background-color: red; color: white; padding: 10px; margin: 5px;">Reject Farmer</button>
+                </form>
+            </div>
+        {% empty %}
+            <p class="no-farmers">No pending farmers found.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

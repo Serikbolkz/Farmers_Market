@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            background: url("{% static 'images/picture.jpg' %}") no-repeat center center/cover;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="top-left">
+        <a href="{% url 'main' %}" class="btn-main">Go to Main Page</a>
+    </div>
+
+    <div class="container">
+        <h2>Login</h2>
+
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <label>Username:</label>
+            <input type="text" name="username" required><br>
+            <label>Password:</label>
+            <input type="password" name="password" required><br>
+            <button type="submit" class="btn-login">Login</button>
+            <a href="{% url 'forget_password' %}" class="btn-forget">Forget Password?</a>
+        </form>
+    </div>
+</body>
+</html>

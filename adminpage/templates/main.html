@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmers' Market</title>
+    {% load static %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            position: relative;
+            background-image: url("{% static 'images/image1.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            color: rgb(198, 248, 209);
+            padding: 60px 20px;
+            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            width: 1200px;
+            height: 220px;
+            margin: 0 auto;
+        }
+
+        header .background-shape {
+            position: absolute;
+            top: 50px;
+            left: 365px;
+            width: 450px;
+            height: 110px;
+            background-color: rgba(38, 134, 85, 0.5);
+            border-radius: 20px;
+            z-index: 1;
+        }
+
+        header h1 {
+            z-index: 2;
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7), -4px -4px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        header .slogan {
+            z-index: 2;
+            font-size: 18px;
+            font-weight: 500;
+            color: rgb(198, 248, 209);
+            margin-top: 10px;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7), -4px -4px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        #log-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 7px 13px;
+            border: 2px solid #3e7d64;
+            background-color: #1a5225;
+            color: rgb(238, 242, 239);
+            font-size: 14px;
+            border-radius: 2px;
+            cursor: pointer;
+            z-index: 3;
+            font-weight: bold;
+            width: 100px;
+        }
+
+        #log-btn:hover {
+            background-color: #7fb880;
+        }
+
+        #log-btn:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+        }
+
+        .how-it-works {
+            padding: 40px;
+            background-color: #f0fff5;
+            text-align: center;
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .how-it-works h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .how-it-works-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: nowrap;
+        }
+
+        .how-it-works-container .farmer-info,
+        .how-it-works-container .customer-info {
+            width: 500px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .how-img {
+            width: 500px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .how-it-works-container h3 {
+            font-size: 22px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .how-it-works-container p {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .advertisement {
+            padding: 40px;
+            background-color: #8ce5c0;
+            text-align: center;
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .advertisement h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .ads-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: nowrap;
+        }
+
+        .ad {
+            width: 250px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .ad-img {
+            width: 500px;
+            height: 300px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .ad h4 {
+            font-size: 22px;
+            margin-top: 10px;
+        }
+
+        .ad p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        footer {
+            background-color: #558f55;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 5px;
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-section {
+            width: 600px;
+            margin: 3px 0;
+            padding: 10px;
+            background-color: #3b7e3a;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .footer-section p {
+            font-size: 16px;
+            color: #dddddd;
+            line-height: 1.6;
+        }
+
+        footer img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-top: 10px;
+        }
+
+        footer p {
+            font-size: 16px;
+            color: #ddd;
+            margin-top: 20px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    <header>
+        <div class="background-shape"></div>
+            <h1>Farmers' Market</h1>
+            <p class="slogan">Fresh groceries and fast delivery</p>
+            <a href="{% url 'login' %}">
+                <button id="log-btn">Login</button>
+            </a>
+    </header>
+
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+
+        <div class="how-it-works-container">
+            <div class="farmer-info">
+                <img src="static/images/image2.jpg" alt="Farmer Registering" class="how-img">
+                <h3>Farmers, Sell Your Products</h3>
+                <p>Farmers can easily register on our platform to sell fresh produce directly to customers. With our mobile and web app, you can manage your products and sales effortlessly.</p>
+            </div>
+            <div class="customer-info">
+                <img src="static/images/image3.jpg" alt="Customer Shopping" class="how-img">
+                <h3>Customers, Shop for Fresh Groceries</h3>
+                <p>Customers can browse through various categories, make purchases, and enjoy fast delivery right at their doorstep. Simply download the app to start shopping now!</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>We are an online platform connecting farmers and customers. Our goal is to offer fresh, organic produce directly from local farmers to your doorstep. With fast delivery and a seamless shopping experience, we make it easy for you to support sustainable agriculture and eat healthy.</p>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Download Our App</h3>
+                <img src="static/images/qrcode.jpeg" alt="Download App">
+                <p>Scan the QR code or click below to download the app for easy shopping on the go.</p>
+            </div>
+        </div>
+    
+        <p>&copy; 2024 Farmer's Market. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
